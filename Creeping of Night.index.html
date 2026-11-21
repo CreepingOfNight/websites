@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creeping of Night — I stay up all night 'till I see the morning.</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Great Vibes, Cormorant Garamond, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            script: ['"Great Vibes"', 'cursive'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            abyss: {
+              deep: '#060b14',
+              mid: '#0b1524',
+              surface: '#122136',
+            },
+            steel: {
+              muted: '#5c7c9e',
+              mist: '#84a5c9',
+              silver: '#cbd7e6',
+            },
+            fog: {
+              primary: '#eef4fb',
+              secondary: '#8fa3bd',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* =========================================================
+       PALET WARNA & ATMOSFER ABYSSAL MIDNIGHT NAVY / STEEL BLUE
+    ========================================================= */
+    :root {
+      --bg-deep: #060b14;
+      --bg-mid: #0b1524;
+      --bg-tide: #122136;
+      --glass-bg: rgba(13, 24, 41, 0.75);
+      --glass-border: rgba(132, 165, 201, 0.22);
+      --glass-shadow: rgba(3, 7, 14, 0.72);
+      --accent-steel: #5c7c9e;
+      --accent-mist: #84a5c9;
+      --accent-silver: #cbd7e6;
+      --text-main: #cbd7e6;
+      --text-bright: #eef4fb;
+      --text-muted: #8fa3bd;
+    }
+
+    body {
+      background: linear-gradient(180deg, #060b14 0%, #0b1524 52%, #122136 100%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar Kustom Bernuansa Samudra Malam */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060b14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(92, 124, 158, 0.42);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(132, 165, 201, 0.68);
+    }
+
+    /* Efek Glassmorphism Biru Laut Gelap Transparan */
+    .glass-panel {
+      background: rgba(13, 24, 41, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(132, 165, 201, 0.22);
+      box-shadow: 0 20px 50px rgba(3, 7, 14, 0.72);
+    }
+
+    .glass-card {
+      background: rgba(13, 24, 41, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(132, 165, 201, 0.22);
+      box-shadow: 0 14px 36px rgba(3, 7, 14, 0.72);
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(132, 165, 201, 0.5);
+      box-shadow: 0 20px 45px rgba(3, 7, 14, 0.85), 0 0 24px rgba(92, 124, 158, 0.18);
+    }
+
+    /* Tipografi Great Vibes dengan Tekstur Emboss Biru Baja */
+    .title-emboss-script {
+      font-family: 'Great Vibes', cursive;
+      color: #84a5c9;
+      background: linear-gradient(180deg, #cbd7e6 0%, #84a5c9 48%, #4b698a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 6px rgba(3, 7, 14, 0.95)) drop-shadow(0 0 18px rgba(92, 124, 158, 0.34));
+    }
+
+    .navbar-script {
+      font-family: 'Great Vibes', cursive;
+      color: #c7d8ec;
+      text-shadow: 0 2px 8px rgba(3, 7, 14, 0.92), 0 0 14px rgba(132, 165, 201, 0.35);
+    }
+
+    /* Elemen Dekoratif Tanda Tanya "?" Buram Melayang Pelan */
+    .floating-qmark {
+      position: fixed;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 700;
+      color: #cbd7e6;
+      filter: blur(3.5px);
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes driftQuestionA {
+      0%, 100% { transform: translate(0, 0) rotate(-6deg) scale(1); }
+      50% { transform: translate(14px, -22px) rotate(4deg) scale(1.04); }
+    }
+    @keyframes driftQuestionB {
+      0%, 100% { transform: translate(0, 0) rotate(8deg) scale(1); }
+      50% { transform: translate(-18px, -16px) rotate(-3deg) scale(0.97); }
+    }
+    @keyframes driftQuestionC {
+      0%, 100% { transform: translate(0, 0) rotate(-4deg); }
+      50% { transform: translate(10px, 18px) rotate(6deg); }
+    }
+
+    .qmark-anim-a { animation: driftQuestionA 13s ease-in-out infinite; }
+    .qmark-anim-b { animation: driftQuestionB 16s ease-in-out infinite; }
+    .qmark-anim-c { animation: driftQuestionC 19s ease-in-out infinite; }
+
+    /* Kilau Bintang Samar di Langit Laut Malam */
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.18; transform: scale(0.95); }
+      50% { opacity: 0.65; transform: scale(1.15); }
+    }
+    .night-star {
+      position: fixed;
+      border-radius: 9999px;
+      background-color: #eef4fb;
+      box-shadow: 0 0 8px rgba(132, 165, 201, 0.75);
+      pointer-events: none;
+      animation: starTwinkle 6s ease-in-out infinite;
+    }
+
+    /* Animasi Ombak Laut Malam di Bagian Bawah Layar */
+    @keyframes tideWaveSlow {
+      0% { transform: translateX(0); }
+      50% { transform: translateX(-25%); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes tideWaveReverse {
+      0% { transform: translateX(-25%); }
+      50% { transform: translateX(0); }
+      100% { transform: translateX(-25%); }
+    }
+    .wave-layer-1 {
+      animation: tideWaveSlow 22s ease-in-out infinite;
+    }
+    .wave-layer-2 {
+      animation: tideWaveReverse 17s ease-in-out infinite;
+    }
+
+    /* Animasi Transisi Antar Halaman SPA */
+    .page-section {
+      display: none;
+      animation: mistFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes mistFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animasi Piringan Vinyl & Equalizer Audio */
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .vinyl-spinning {
+      animation: spinVinyl 11s linear infinite;
+    }
+    .vinyl-paused {
+      animation-play-state: paused;
+    }
+
+    @keyframes tideBar {
+      0%, 100% { height: 20%; }
+      50% { height: 92%; }
+    }
+    .eq-bar {
+      animation: tideBar 0.95s ease-in-out infinite;
+    }
+    .eq-paused {
+      animation: none !important;
+      height: 22% !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative selection:bg-[#5c7c9e]/40 selection:text-[#e8eff7]">
+
+  <!-- =========================================================
+       LATAR BELAKANG LAUT MALAM, TANDA TANYA BURAM & OMBAK
+  ========================================================= -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <!-- Cahaya Rembulan Samar di Cakrawala -->
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[42rem] h-72 bg-[#5c7c9e]/14 rounded-full blur-[130px]"></div>
+    <div class="absolute top-1/3 -left-24 w-80 h-80 bg-[#122136]/65 rounded-full blur-[110px]"></div>
+
+    <!-- Titik Bintang Samar di Cakrawala Malam -->
+    <span class="night-star w-1 h-1 top-[9%] left-[22%]" style="animation-delay: 0.4s;"></span>
+    <span class="night-star w-1.5 h-1.5 top-[15%] left-[68%]" style="animation-delay: 1.8s;"></span>
+    <span class="night-star w-1 h-1 top-[24%] left-[42%]" style="animation-delay: 3.1s;"></span>
+    <span class="night-star w-1 h-1 top-[11%] right-[26%]" style="animation-delay: 2.2s;"></span>
+    <span class="night-star w-1.5 h-1.5 top-[31%] left-[16%]" style="animation-delay: 4.0s;"></span>
+
+    <!-- Elemen Dekoratif Tanda Tanya "?" Buram Melayang Pelan -->
+    <span class="floating-qmark qmark-anim-a text-6xl sm:text-7xl top-[16%] left-[12%] opacity-[0.16]">?</span>
+    <span class="floating-qmark qmark-anim-b text-8xl sm:text-9xl top-[12%] right-[14%] opacity-[0.20]">?</span>
+    <span class="floating-qmark qmark-anim-b text-7xl sm:text-8xl bottom-[22%] left-[8%] opacity-[0.18]">?</span>
+    <span class="floating-qmark qmark-anim-c text-5xl sm:text-6xl bottom-[18%] right-[11%] opacity-[0.15]">?</span>
+    <span class="floating-qmark qmark-anim-a text-4xl sm:text-5xl top-[48%] right-[28%] opacity-[0.11]">?</span>
+
+    <!-- Kabut Gelap & Deburan Ombak Laut Malam di Bagian Bawah Layar -->
+    <div class="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#060b14] via-[#0b1524]/70 to-transparent"></div>
+    <svg class="wave-layer-1 absolute bottom-0 left-0 w-[200%] h-28 sm:h-36 opacity-40" viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <path fill="#122136" d="M0,96L60,101.3C120,107,240,117,360,112C480,107,600,85,720,80C840,75,960,85,1080,96C1200,107,1320,117,1380,122.7L1440,128L1440,160L1380,160C1320,160,1200,160,1080,160C960,160,840,160,720,160C600,160,480,160,360,160C240,160,120,160,60,160L0,160Z"></path>
+    </svg>
+    <svg class="wave-layer-2 absolute bottom-0 left-0 w-[200%] h-20 sm:h-28 opacity-50" viewBox="0 0 1440 160" preserveAspectRatio="none">
+      <path fill="#0b1524" d="M0,112L80,106.7C160,101,320,91,480,96C640,101,800,123,960,128C1120,133,1280,123,1360,117.3L1440,112L1440,160L1360,160C1280,160,1120,160,960,160C800,160,640,160,480,160C320,160,160,160,80,160L0,160Z"></path>
+    </svg>
+  </div>
+
+  <!-- =========================================================
+       NAVBAR HEADER UTAMA (RESPONSIF + MENU MOBILE)
+  ========================================================= -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-[#7a98bd]/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+
+        <!-- Brand Logo -->
+        <button onclick="navigateTo('home')" class="flex items-center gap-3 text-left group focus:outline-none">
+          <div class="w-10 h-10 rounded-xl bg-[#0b1524] border border-[#7a98bd]/30 flex items-center justify-center shadow-inner group-hover:border-[#84a5c9] transition-colors">
+            <svg class="w-5 h-5 text-[#84a5c9] group-hover:scale-105 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              <path d="M3 19c2.5-1.5 5.5-1.5 8 0s5.5 1.5 8 0" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div>
+            <span class="navbar-script text-2xl sm:text-[26px] leading-none block">Creeping of Night</span>
+            <span class="text-[10px] tracking-[0.22em] text-[#8fa3bd] uppercase block mt-0.5">I stay up all night 'till I see the morning</span>
+          </div>
+        </button>
+        <!-- Menu Navigasi Desktop -->
+        <nav class="hidden lg:flex items-center gap-1 bg-[#060b14]/60 p-1.5 rounded-2xl border border-[#7a98bd]/20" aria-label="Navigasi Utama">
+          <button data-nav="home" onclick="navigateTo('home')" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-medium transition-all">Homepage</button>
+          <button data-nav="concept" onclick="navigateTo('concept')" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-medium transition-all">Concept</button>
+          <button data-nav="join" onclick="navigateTo('join')" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-medium transition-all">How to Join</button>
+          <button data-nav="regulasi" onclick="navigateTo('regulasi')" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-medium transition-all">Regulations</button>
+          <button data-nav="caretaker" onclick="navigateTo('caretaker')" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-medium transition-all">Caretakers</button>
+          <button data-nav="members" onclick="navigateTo('members')" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-medium transition-all">Members</button>
+            <span id="nav-audio-dot" class="w-2 h-2 rounded-full bg-[#cbd7e6] hidden animate-ping"></span>
+          </button>
+        </nav>
+
+        <!-- Tombol Aksi & Hamburger Mobile -->
+        <div class="flex items-center gap-2.5">
+          <button onclick="navigateTo('join')" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold bg-[#5c7c9e]/25 hover:bg-[#5c7c9e]/40 border border-[#84a5c9]/35 text-[#e8eff7] shadow-lg shadow-[#03070e]/60 transition-all active:scale-95">
+            <span>Join Us</span>
+            <svg class="w-3.5 h-3.5 text-[#cbd7e6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Buka Menu Navigasi" class="lg:hidden p-2.5 rounded-xl bg-[#0b1524]/80 hover:bg-[#122136] border border-[#7a98bd]/25 text-[#e8eff7] transition-colors">
+            <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+            <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Menu Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-[#7a98bd]/20 bg-[#060b14]/95 backdrop-blur-2xl px-4 pt-3 pb-5 space-y-1.5">
+      <button data-nav-mobile="home" onclick="navigateTo('home')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between">
+        <span>01. Homepage</span>
+        <span class="text-xs text-[#8fa3bd]">Home</span>
+      </button>
+      <button data-nav-mobile="concept" onclick="navigateTo('concept')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between">
+        <span>02. Concept</span>
+        <span class="text-xs text-[#8fa3bd]">Concept</span>
+      </button>
+      <button data-nav-mobile="join" onclick="navigateTo('join')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between">
+        <span>03. How to Join</span>
+        <span class="text-xs text-[#84a5c9]">Format</span>
+      </button>
+      <button data-nav-mobile="regulasi" onclick="navigateTo('regulasi')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between">
+        <span>04. Regulasi</span>
+        <span class="text-xs text-[#8fa3bd]">Aturan</span>
+      </button>
+      <button data-nav-mobile="caretaker" onclick="navigateTo('caretaker')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between">
+        <span>05. Caretaker</span>
+        <span class="text-xs text-[#8fa3bd]">Pengurus</span>
+      </button>
+      <button data-nav-mobile="members" onclick="navigateTo('members')" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-medium flex items-center justify-between">
+        <span>06. Members</span>
+        <span class="text-xs text-[#84a5c9]">Galeri Anggota</span>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       KONTEN UTAMA (7 HALAMAN SPA)
+  ========================================================= -->
+  <main class="relative z-10 flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pb-28">
+
+    <!-- =======================================================
+         HALAMAN 1: UTAMA (HOME)
+         CATATAN: TANPA TOMBOL BACK MAUPUN TOMBOL HOME DI ATAS & BAWAH
+    ======================================================== -->
+    <section id="page-home" class="page-section active space-y-10">
+      <!-- Bar Status Atas Halaman Utama (Tanpa Tombol Back & Tanpa Tombol Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3 border border-[#84a5c9]/20">
+        <span class="text-[11px] font-mono tracking-wider uppercase text-[#8fa3bd] px-1">01 / 07 • Homepage</span>
+        <span class="text-[11px] font-medium text-[#84a5c9] px-1">2 am and no sleeping, and 3 am and I'm creeping</span>
+      </div>
+
+      <!-- Hero Section -->
+      <div class="glass-panel rounded-3xl p-7 sm:p-12 lg:p-16 relative overflow-hidden text-center">
+        <!-- Tanda Tanya Dekoratif Halus di Dalam Hero -->
+        <span class="absolute top-6 left-8 font-serif text-5xl text-[#cbd7e6]/10 blur-[2px] select-none pointer-events-none">?</span>
+        <span class="absolute bottom-8 right-10 font-serif text-6xl text-[#cbd7e6]/10 blur-[2px] select-none pointer-events-none">?</span>
+
+        <div class="max-w-3xl mx-auto space-y-6 relative z-10">
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#060b14]/65 border border-[#7a98bd]/25 text-xs font-medium text-[#cbd7e6]">
+            <span class="w-2 h-2 rounded-full bg-[#84a5c9] animate-pulse"></span>
+            <span class="tracking-wider uppercase">Do you love me or nada?</span>
+          </div>
+
+
+
+
+          <!-- Judul Utama Great Vibes dengan Tekstur Emboss Biru Baja -->
+          <div class="py-10">
+            <h1 class="title-Poppins Bold-script text-10xl sm:text-[8rem] md:text-[9rem] lg:text-[10rem] leading-none">
+              Creeping of Night
+            </h1>
+          </div>
+
+
+          
+
+          <!-- Tagline Puitis -->
+          <p class="font-serif italic text-xl sm:text-2xl text-[#cbd7e6] leading-relaxed max-w-2xl mx-auto">
+            “Between the hush of dreams and the call of waking, wishes bloom as we find ourselves.”
+          </p>
+
+          <p class="text-sm sm:text-base text-[#8fa3bd] max-w-xl mx-auto leading-relaxed">
+            Uncertainty is woven into every journey, and each wandering mind carries a story of its own. What begins as scattered thoughts and fleeting fragments may, in time, fall into place. So come as you are, and let curiosity lead you somewhere yet to be discovered.
+          </p>
+
+          <!-- Tombol Aksi Cepat -->
+          <div class="flex flex-wrap items-center justify-center gap-3.5 pt-3">
+            <button onclick="navigateTo('join')" class="px-7 py-3.5 rounded-2xl font-semibold text-sm bg-gradient-to-r from-[#5c7c9e] to-[#84a5c9] hover:brightness-110 text-[#060b14] shadow-xl shadow-[#03070e]/70 transition-all active:scale-95 flex items-center gap-2">
+              <span>How to Join</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <button onclick="navigateTo('concept')" class="px-7 py-3.5 rounded-2xl font-semibold text-sm bg-[#060b14]/70 hover:bg-[#122136] border border-[#7a98bd]/30 text-[#e8eff7] transition-all active:scale-95">
+              Meet Our Concept
+            </button>
+
+          </div>
+        </div>
+
+      <!-- 6 Kartu Navigasi Cepat Menuju Keenam Halaman Lainnya -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="font-serif text-2xl font-bold text-[#eef4fb]"></h2>
+          <span class="text-xs text-[#8fa3bd]">Choose your destination</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Kartu 1: Concept -->
+          <button onclick="navigateTo('concept')" class="glass-card p-5 rounded-2xl text-left group flex flex-col justify-between">
+            <div class="w-11 h-11 rounded-xl bg-[#060b14]/70 border border-[#7a98bd]/25 flex items-center justify-center text-[#84a5c9] mb-4 group-hover:border-[#cbd7e6]/50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M2 12c2.5-2 5.5-2 8 0s5.5 2 8 0 4-1.5 4-1.5M2 17c2.5-2 5.5-2 8 0s5.5 2 8 0 4-1.5 4-1.5M2 7c2.5-2 5.5-2 8 0s5.5 2 8 0 4-1.5 4-1.5"/></svg>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono text-[#5c7c9e]">02 // Get to know us</span>
+              <h3 class="font-bold text-[#eef4fb] group-hover:text-[#cbd7e6] mt-0.5">Concept</h3>
+              <p class="text-xs text-[#8fa3bd] mt-1.5 leading-relaxed">Where scattered thoughts meet, wishes linger, and unfamiliar stories begin to unfold.</p>
+            </div>
+          </button>
+
+          <!-- Kartu 2: How to Join -->
+          <button onclick="navigateTo('join')" class="glass-card p-5 rounded-2xl text-left group flex flex-col justify-between">
+            <div class="w-11 h-11 rounded-xl bg-[#060b14]/70 border border-[#7a98bd]/25 flex items-center justify-center text-[#84a5c9] mb-4 group-hover:border-[#cbd7e6]/50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/></svg>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono text-[#5c7c9e]">03 // Read this carefully</span>
+              <h3 class="font-bold text-[#eef4fb] group-hover:text-[#cbd7e6] mt-0.5">How to Join</h3>
+              <p class="text-xs text-[#8fa3bd] mt-1.5 leading-relaxed">Journey begins, and starts with a step into the unknown.</p>
+            </div>
+          </button>
+
+          <!-- Kartu 3: Regulasi -->
+          <button onclick="navigateTo('regulasi')" class="glass-card p-5 rounded-2xl text-left group flex flex-col justify-between">
+            <div class="w-11 h-11 rounded-xl bg-[#060b14]/70 border border-[#7a98bd]/25 flex items-center justify-center text-[#84a5c9] mb-4 group-hover:border-[#cbd7e6]/50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono text-[#5c7c9e]">04 // Check us</span>
+              <h3 class="font-bold text-[#eef4fb] group-hover:text-[#cbd7e6] mt-0.5">Regulations</h3>
+              <p class="text-xs text-[#8fa3bd] mt-1.5 leading-relaxed">The wildest minds need a hope of guide to keep thoughts in harmony.</p>
+            </div>
+          </button>
+
+          <!-- Kartu 4: Caretaker -->
+          <button onclick="navigateTo('caretaker')" class="glass-card p-5 rounded-2xl text-left group flex flex-col justify-between">
+            <div class="w-11 h-11 rounded-xl bg-[#060b14]/70 border border-[#7a98bd]/25 flex items-center justify-center text-[#84a5c9] mb-4 group-hover:border-[#cbd7e6]/50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono text-[#5c7c9e]">05 // Meet us</span>
+              <h3 class="font-bold text-[#eef4fb] group-hover:text-[#cbd7e6] mt-0.5">Caretaker</h3>
+              <p class="text-xs text-[#8fa3bd] mt-1.5 leading-relaxed">The minds behind the scenes, keeping every little thought in place.</p>
+            </div>
+          </button>
+
+          <!-- Kartu 5: Members -->
+          <button onclick="navigateTo('members')" class="glass-card p-5 rounded-2xl text-left group flex flex-col justify-between">
+            <div class="w-11 h-11 rounded-xl bg-[#060b14]/70 border border-[#7a98bd]/25 flex items-center justify-center text-[#84a5c9] mb-4 group-hover:border-[#cbd7e6]/50 transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono text-[#5c7c9e]">06 // Meet us</span>
+              <h3 class="font-bold text-[#eef4fb] group-hover:text-[#cbd7e6] mt-0.5">Members</h3>
+              <p class="text-xs text-[#8fa3bd] mt-1.5 leading-relaxed">A gathering of wandering minds, each bringing each own universe into a story yet to be told.</p>
+            </div>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Bar Navigasi Bawah Halaman Utama (Hanya Tautan Selanjutnya: Concept, Tanpa Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3.5 border border-[#84a5c9]/20">
+        <span class="text-xs text-[#8fa3bd] px-1">Looking around about Creeping of Night</span>
+        <button onclick="navigateTo('concept')" class="text-xs sm:text-sm text-[#84a5c9] hover:text-[#cbd7e6] font-semibold transition-colors px-2 py-1">
+          Next →
+        </button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         HALAMAN 2: CONCEPT
+    ======================================================== -->
+    <section id="page-concept" class="page-section space-y-10">
+      <!-- Bar Navigasi Atas (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <span class="text-[11px] font-mono tracking-wider uppercase text-[#8fa3bd] px-2">02 / 07 • Concept</span>
+      </div>
+
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#84a5c9]">02 // About our concept</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-[#e8eff7]">Concept: Creeping of Night</h2>
+        <p class="text-[#8fa3bd] text-sm sm:text-base leading-relaxed">
+          Trapped in a <strong class="text-[#FFFFFF]"></strong>w͟h͟i͟r͟l͟w͟i͟n͟d͟ o͟f͟ t͟h͟o͟u͟g͟h͟t͟s͟,</strong> where certainty feels distant and leaves us wondering ✦ Accompanied by <strong class="text-[#e8eff7]">𝘁𝗵𝗲 𝗺𝗶𝗻𝗱𝘀</strong> who stay awake.
+          </p>
+       <p class="text-[#8fa3bd] text-sm sm:text-base leading-relaxed"></p>
+          It reflects the experience of navigating unfamiliar feelings and second-guessing our own thoughts that seem to have no immediate answers.
+        </p>
+        <p class="text-[#8fa3bd] text-sm sm:text-base leading-relaxed"></p>
+      There is a peculiar charm in this uncertainty, in the way confusion can lead us somewhere unexpected. Rather than rushing to find an explanation for everything, we embrace the process of figuring things out along the way.</p>
+        <p class="text-[#8fa3bd] text-sm sm:text-base leading-relaxed"></p>
+      By bringing different voices together, new perspectives will begin in a story that never seems to reach its end. <strong classs="text-[#FFFFFF]">Lossing tract, loosing time, losing yourelf, and losing mind.</strong>
+        </p>
+      </div>
+
+      <!-- Bar Navigasi Bawah (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3.5 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <button onclick="navigateTo('join')" class="text-xs text-[#84a5c9] hover:text-[#cbd7e6] font-medium transition-colors px-2">
+          How to Join →
+        </button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         HALAMAN 3: HOW TO JOIN
+    ======================================================== -->
+    <section id="page-join" class="page-section space-y-10">
+      <!-- Bar Navigasi Atas (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <span class="text-[11px] font-mono tracking-wider uppercase text-[#8fa3bd] px-2">03 / 07 • How to Join</span>
+      </div>
+
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#84a5c9]">03 // How to Join</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-[#e8eff7]">Before You Enter The Night.</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Kolom Kiri: Syarat Bergabung & Alur 3 Langkah -->
+        <div class="lg:col-span-10 space-y-12">
+          <!-- Syarat Bergabung -->
+          <div class="glass-panel rounded-3xl p-6 sm:p-7 space-y-4">
+            <h3 class="font-serif text-xl font-bold text-[#e8eff7] flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-[#84a5c9]"></span>
+              <span>Please make sure to follow these steps.</span>
+            </h3>
+            <ul class="space-y-3 text-sm text-[#8fa3bd]">
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span>Give our base account a follow at <strong class="text-[#e8eff7]">@CreepingOfNight</strong>.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span>Make sure you've read through all the rules before applying.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span>Your following count must be <strong class="text-[#e8eff7]">0</strong> before applying, with Creeping Of Night as the <strong class="text-[#e8eff7]">only</strong> account on your following list. </span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> <strong class="text-[#e8eff7]">Fill out the form</strong> and stay tuned for the upcoming announcement.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> Once your name appears on the verification list, change your username using the format we'll provide on D-Day. See you around!</span>
+              </li>
+            </ul>
+          </div>
+           
+          
+
+
+      <!-- Bar Navigasi Bawah (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3.5 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <button onclick="navigateTo('regulasi')" class="text-xs text-[#84a5c9] hover:text-[#cbd7e6] font-medium transition-colors px-2">
+          Rules →
+        </button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         HALAMAN 4: REGULASI (3 KATEGORI ATURAN)
+    ======================================================== -->
+    <section id="page-regulasi" class="page-section space-y-10">
+      <!-- Bar Navigasi Atas (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <span class="text-[11px] font-mono tracking-wider uppercase text-[#8fa3bd] px-2">04 / 07 • Regulasi</span>
+      </div>
+
+      <div class="max-w-3xl space-y-3">
+        <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#84a5c9]">04 // Regulations</span>
+        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-[#e8eff7]">The Midnight Memo</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Kategori 1: Peraturan Umum -->
+         <div class="lg:col-span-10 space-y-12">
+          <!-- Syarat Bergabung -->
+          <div class="glass-panel rounded-3xl p-6 sm:p-7 space-y-4">
+            <h3 class="font-serif text-xl font-bold text-[#e8eff7] flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-[#84a5c9]"></span>
+              <span>Please read this carefully.</span>
+            </h3>
+            <ul class="space-y-3 text-sm text-[#8fa3bd]">
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span>We are an <strong class="text-[#e8eff7]">Asian Stars Only Closed Agency</strong>. With one account per person is allowed, with no twins unless permitted by your muse.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span>Accepting stars <strong class="text-[#e8eff7]">no later than 2004 </strong>. Blacklisted The use of forbidden or Zionist-affiliated muses is strictly prohibited.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span>Will be operating for <strong class="text-[#e8eff7]">6 days</strong>. Hiatus is limited to one day, members must remain reachable throughout their stay. Failure to do so may result in removal without prior notice.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> Each member must reach <strong class="text-[#e8eff7]">60 tweets</strong> within 24 hours of claiming a slot and maintain a minimum of <strong class="text-[#e8eff7]">30 tweets daily</strong>.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> Outsiders, persona exchanges, irrelevant circle activities, disruptive, and political jokes are <strong class="text-[#e8eff7]">strictly prohibited</strong>.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> <strong class="text-[#e8eff7]">Non-explicit/suggestive NSFW conversations</strong> are only allowed <strong class="text-[#e8eff7]">after maintenance hours to 5 AM (GMT+7)</strong>. Keep things appropriate, explicit content is prohibited.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> Character changes are allowed only once after verification.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> Must refrain from sharing NSFW media or making jokes that are discriminatory, offensive, or SARA-related, also doxxing someone's persona behind the curtain.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-4 h-4 text-[#cbd7e6] shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                <span> For any concerns, please contact our base or reach out to the admins via personal DM.</span>
+              </li>
+            </ul>
+          </div>
+
+      <!-- Bar Navigasi Bawah (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3.5 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <button onclick="navigateTo('caretaker')" class="text-xs text-[#84a5c9] hover:text-[#cbd7e6] font-medium transition-colors px-2">
+          Caretaker →
+        </button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         HALAMAN 5: CARETAKER (6 PROFIL PENGURUS)
+    ======================================================== -->
+    <section id="page-caretaker" class="page-section space-y-10">
+      <!-- Bar Navigasi Atas (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <span class="text-[11px] font-mono tracking-wider uppercase text-[#8fa3bd] px-2">05 / 07 • Caretaker</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div class="max-w-2xl space-y-3">
+          <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#84a5c9]">05 // We're keeping the night safe</span>
+          <h2 class="font-serif text-3xl sm:text-5xl font-bold text-[#e8eff7]">Caretakers</h2>
+          <p class="text-[#8fa3bd] text-sm sm:text-base leading-relaxed">
+            A restless mind may wander wherever curiosity takes it, but even the wildest thoughts need a hope of guide. With that in mind, here's what you need to know before settling in.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- =====================================================
+             CARETAKER 01 (Ganti src foto, Nama, & Username di sini)
+        ====================================================== -->
+        <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square w-full bg-[#060b14] overflow-hidden border-b border-[#84a5c9]/20">
+              <!-- GANTI LINK/PATH FOTO CARETAKER 01 DI ATRIBUT src="" -->
+              <img
+                src="https://media.discordapp.net/attachments/1569598718255169668/1573227826998542376/AVA_ES.png?ex=6b028f97&is=6b013e17&hm=7245ce8b4bc510c30f854fa6013ed9cf4e3904f111a328d73f78cc810d09e333&format=webp&quality=lossless&width=1012&height=1024"
+                alt="Foto Caretaker 01"
+                loading="lazy"
+                onerror="this.onerror=null;this.src='https://placehold.co/500x500/0b1524/84a5c9?text=Creeping+of+Night';"
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/25 pointer-events-none"></div>
+
+              <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#060b14]/85 backdrop-blur-md border border-[#84a5c9]/35 text-[11px] font-mono font-semibold text-[#cbd7e6]">
+                #01 • Active  
+              </span>
+
+              <div class="absolute bottom-3.5 left-4 right-4">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#84a5c9] block">...</span>
+                <!-- GANTI NAMA CARETAKER 01 DI BAWAH INI -->
+                <h3 class="font-serif text-2xl font-bold text-[#eef4fb] leading-tight mt-0.5">Rasyad Qays</h3>
+                <!-- GANTI USERNAME CARETAKER 01 DI BAWAH INI -->
+                <p class="font-mono text-xs text-[#cbd7e6] mt-0.5">@RasyadAwake</p>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 space-y-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#84a5c9]">The Detailed</p>
+              <p class="text-xs sm:text-sm text-[#8fa3bd] leading-relaxed">
+                To gather the scattered pieces of our journey and keep every passing moment accounted for, @RasyadAwake makes sure no detail gets lost along the way.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#7a98bd]/20 flex items-center justify-between gap-3">
+            <!-- GANTI USERNAME CARETAKER 01 DI BAWAH INI -->
+            <span class="font-mono text-xs text-[#cbd7e6] bg-[#060b14]/80 px-3 py-1.5 rounded-xl border border-[#7a98bd]/20 truncate">
+              @RasyadAwake
+            </span>
+            <button
+              type="button"
+              onclick="copyCardUsername(this)"
+              class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5c7c9e]/25 hover:bg-[#5c7c9e]/45 border border-[#84a5c9]/35 text-[#eef4fb] transition-all active:scale-95 flex items-center gap-1.5 shrink-0"
+            >
+              <svg class="w-3.5 h-3.5 text-[#cbd7e6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+              <span>Copy Username</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- =====================================================
+             CARETAKER 02 (Ganti src foto, Nama, & Username di sini)
+        ====================================================== -->
+        <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square w-full bg-[#060b14] overflow-hidden border-b border-[#84a5c9]/20">
+              <!-- GANTI LINK/PATH FOTO CARETAKER 02 DI ATRIBUT src="" -->
+              <img
+                src="https://media.discordapp.net/attachments/1569598718255169668/1573227827854188594/AVA_SC.png?ex=6b028f97&is=6b013e17&hm=da61a20f17e0ff8c6255486af0c255d65996cae2d6622d8ed0b7fb1991bb5336&format=webp&quality=lossless&width=1012&height=1024"
+                alt="Foto Caretaker 02"
+                loading="lazy"
+                onerror="this.onerror=null;this.src='https://placehold.co/500x500/0b1524/84a5c9?text=Creeping+of+Night';"
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/25 pointer-events-none"></div>
+
+              <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#060b14]/85 backdrop-blur-md border border-[#84a5c9]/35 text-[11px] font-mono font-semibold text-[#cbd7e6]">
+                #02 • Active
+              </span>
+
+              <div class="absolute bottom-3.5 left-4 right-4">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#84a5c9] block">...</span>
+                <!-- GANTI NAMA CARETAKER 02 DI BAWAH INI -->
+                <h3 class="font-serif text-2xl font-bold text-[#eef4fb] leading-tight mt-0.5">Derrelian Samudra</h3>
+                <!-- GANTI USERNAME CARETAKER 02 DI BAWAH INI -->
+                <p class="font-mono text-xs text-[#cbd7e6] mt-0.5">@DerrelianAwake</p>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 space-y-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#84a5c9]">The Visualizer</p>
+              <p class="text-xs sm:text-sm text-[#8fa3bd] leading-relaxed">
+                To turn fleeting imaginations into something tangible, giving shape to wandering thoughts, @DarrelianAwake brings every vision to the night.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#7a98bd]/20 flex items-center justify-between gap-3">
+            <!-- GANTI USERNAME CARETAKER 02 DI BAWAH INI -->
+            <span class="font-mono text-xs text-[#cbd7e6] bg-[#060b14]/80 px-3 py-1.5 rounded-xl border border-[#7a98bd]/20 truncate">
+              @DererlianAwake
+            </span>
+            <button
+              type="button"
+              onclick="copyCardUsername(this)"
+              class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5c7c9e]/25 hover:bg-[#5c7c9e]/45 border border-[#84a5c9]/35 text-[#eef4fb] transition-all active:scale-95 flex items-center gap-1.5 shrink-0"
+            >
+              <svg class="w-3.5 h-3.5 text-[#cbd7e6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+              <span>Copy Username</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- =====================================================
+             CARETAKER 03 (Ganti src foto, Nama, & Username di sini)
+        ====================================================== -->
+        <article class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative aspect-square w-full bg-[#060b14] overflow-hidden border-b border-[#84a5c9]/20">
+              <!-- GANTI LINK/PATH FOTO CARETAKER 03 DI ATRIBUT src="" -->
+              <img
+                src="https://media.discordapp.net/attachments/1569598718255169668/1573227826138714123/AVA_AT.png?ex=6b028f96&is=6b013e16&hm=15ae57d7c17fb31e523a05b36005afeaaed994f20bbbb0607c706288c7368118&format=webp&quality=lossless&width=1012&height=1024"
+                alt="Foto Caretaker 03"
+                loading="lazy"
+                onerror="this.onerror=null;this.src='https://placehold.co/500x500/0b1524/84a5c9?text=Creeping+of+Night';"
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#060b14] via-transparent to-[#060b14]/25 pointer-events-none"></div>
+
+              <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#060b14]/85 backdrop-blur-md border border-[#84a5c9]/35 text-[11px] font-mono font-semibold text-[#cbd7e6]">
+                #03 • Active
+              </span>
+
+              <div class="absolute bottom-3.5 left-4 right-4">
+                <span class="text-[10px] font-mono uppercase tracking-wider text-[#84a5c9] block">...</span>
+                <!-- GANTI NAMA CARETAKER 03 DI BAWAH INI -->
+                <h3 class="font-serif text-2xl font-bold text-[#eef4fb] leading-tight mt-0.5">Lemuel Elian</h3>
+                <!-- GANTI USERNAME CARETAKER 03 DI BAWAH INI -->
+                <p class="font-mono text-xs text-[#cbd7e6] mt-0.5">@LemuelAwake</p>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 space-y-3">
+              <p class="text-xs font-semibold uppercase tracking-wider text-[#84a5c9]">The Scripter</p>
+              <p class="text-xs sm:text-sm text-[#8fa3bd] leading-relaxed">
+                To string thoughts into sentences and find the right words to give a voice to the mind, @LemuelAwake turns unspoken ideas into stories to tell. 
+              </p>
+            </div>
+          </div>
+
+          <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#7a98bd]/20 flex items-center justify-between gap-3">
+            <!-- GANTI USERNAME CARETAKER 03 DI BAWAH INI -->
+            <span class="font-mono text-xs text-[#cbd7e6] bg-[#060b14]/80 px-3 py-1.5 rounded-xl border border-[#7a98bd]/20 truncate">
+              @LemuelAwake
+            </span>
+            <button
+              type="button"
+              onclick="copyCardUsername(this)"
+              class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5c7c9e]/25 hover:bg-[#5c7c9e]/45 border border-[#84a5c9]/35 text-[#eef4fb] transition-all active:scale-95 flex items-center gap-1.5 shrink-0"
+            >
+              <svg class="w-3.5 h-3.5 text-[#cbd7e6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+              <span>Copy Username</span>
+            </button>
+          </div>
+        </article>
+      </div>
+      
+      <!-- Bar Navigasi Bawah (Back & Home) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 glass-panel rounded-2xl px-4 py-3.5 border border-[#84a5c9]/20">
+        <div class="flex items-center gap-2.5">
+          <button onclick="goBack()" class="page-back-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#060b14]/75 hover:bg-[#122136] border border-[#84a5c9]/25 hover:border-[#84a5c9]/55 text-[#e8eff7] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#84a5c9] font-bold">←</span>
+            <span>Back</span>
+            <span class="page-back-hint hidden sm:inline text-[11px] text-[#8fa3bd] font-normal"></span>
+          </button>
+          <button onclick="goHome()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/35 border border-[#84a5c9]/35 hover:border-[#cbd7e6]/55 text-[#cbd7e6] shadow-md shadow-[#03070e]/60 transition-all active:scale-95 flex items-center gap-2">
+            <span class="text-[#cbd7e6]">⌂</span>
+            <span>Home</span>
+          </button>
+        </div>
+        <button onclick="navigateTo('members')" class="text-xs text-[#84a5c9] hover:text-[#cbd7e6] font-medium transition-colors px-2">
+          Selanjutnya: Members →
+        </button>
+      </div>
+    </section>
+
+  
+ 
+  <!-- =========================================================
+       MINI-PLAYER MELAYANG SAAT BERPINDAH HALAMAN
+  ========================================================= -->
+  <div id="floating-mini-player" class="fixed bottom-4 right-4 sm:right-6 z-40 w-[calc(100%-2rem)] sm:w-96 glass-panel rounded-2xl px-4 py-3 border border-[#84a5c9]/35 shadow-2xl hidden items-center justify-between gap-3">
+    <button onclick="navigateTo('lagu')" class="flex items-center gap-3 text-left min-w-0">
+      <div class="w-10 h-10 rounded-xl bg-[#060b14] border border-[#7a98bd]/30 flex items-center justify-center shrink-0 text-[#cbd7e6]">
+        <svg class="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+
+    </button>
+    <div class="flex items-center gap-1.5 shrink-0">
+      <button onclick="togglePlayPause()" class="p-2.5 rounded-xl bg-[#122136] hover:bg-[#5c7c9e]/30 border border-[#7a98bd]/20 text-[#e8eff7] transition-colors" aria-label="Play atau Pause Mini Player">
+        <svg id="mini-pause-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        <svg id="mini-play-icon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button onclick="nextTrack()" class="p-2.5 rounded-xl bg-[#122136] hover:bg-[#5c7c9e]/30 border border-[#7a98bd]/20 text-[#e8eff7] transition-colors" aria-label="Lagu Berikutnya Mini Player">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       NOTIFIKASI TOAST (PENGGANTI ALERT)
+  ========================================================= -->
+  <div id="toast-notification" class="fixed top-20 right-4 sm:right-8 z-50 pointer-events-none opacity-0 translate-y-2 transition-all duration-300">
+    <div class="glass-panel rounded-2xl px-4 py-3.5 border border-[#84a5c9]/40 shadow-2xl flex items-center gap-3">
+      <div class="w-7 h-7 rounded-lg bg-[#5c7c9e]/25 border border-[#84a5c9]/30 text-[#cbd7e6] flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <p id="toast-message" class="text-xs sm:text-sm font-medium text-[#e8eff7]">Berhasil disalin ke papan klip!</p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer class="relative z-10 border-t border-[#7a98bd]/20 bg-[#060b14]/75 backdrop-blur-md py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8fa3bd]">
+      <p>© 2026 <span class="font-script text-lg text-[#cbd7e6] ml-1">Creeping of Night</span> — Do you love me or nada?.</p>
+      <div class="flex flex-wrap items-center gap-4">
+        <button onclick="navigateTo('home')" class="hover:text-[#eef4fb] transition-colors">Homepage</button>
+        <button onclick="navigateTo('concept')" class="hover:text-[#eef4fb] transition-colors">Concept</button>
+        <button onclick="navigateTo('join')" class="hover:text-[#eef4fb] transition-colors">How to Join</button>
+        <button onclick="navigateTo('regulasi')" class="hover:text-[#eef4fb] transition-colors">Regulations</button>
+        <button onclick="navigateTo('caretaker')" class="hover:text-[#eef4fb] transition-colors">Caretaker</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       LOGIKA JAVASCRIPT (SPA HISTORY, COPY, CARETAKER, MEMBERS & WEB AUDIO API)
+  ========================================================= -->
+  <script>
+    /* -----------------------------------------------------------
+       1. NAVIGASI SPA 7 HALAMAN + RIWAYAT NAVIGASI (BACK & HOME)
+    ----------------------------------------------------------- */
+    let currentPage = 'home';
+    const navigationHistory = [];
+
+    const pageLabels = {
+      home: 'Utama',
+      concept: 'Concept',
+      join: 'How to Join',
+      regulasi: 'Regulasi',
+      caretaker: 'Caretaker'
+    };
+
+    function updateBackHints() {
+      const prevPage = navigationHistory.length > 0 ? navigationHistory[navigationHistory.length - 1] : null;
+      document.querySelectorAll('.page-back-hint').forEach(el => {
+        if (prevPage && pageLabels[prevPage]) {
+          el.textContent = `(${pageLabels[prevPage]})`;
+        } else if (currentPage !== 'home') {
+          el.textContent = '(Utama)';
+        } else {
+          el.textContent = '';
+        }
+      });
+    }
+
+    function navigateTo(pageId, recordHistory = true) {
+      if (recordHistory && currentPage && currentPage !== pageId) {
+        navigationHistory.push(currentPage);
+      }
+
+      currentPage = pageId;
+
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      const target = document.getElementById(`page-${pageId}`);
+      if (target) {
+        target.classList.add('active');
+      }
+
+      // Perbarui status aktif tombol navigasi desktop
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.nav === pageId) {
+          btn.classList.add('bg-[#122136]', 'text-[#e8eff7]', 'border', 'border-[#7a98bd]/30');
+          btn.classList.remove('text-[#8fa3bd]', 'hover:text-[#e8eff7]');
+        } else {
+          btn.classList.remove('bg-[#122136]', 'text-[#e8eff7]', 'border', 'border-[#7a98bd]/30');
+          btn.classList.add('text-[#8fa3bd]', 'hover:text-[#e8eff7]');
+        }
+      });
+
+      // Perbarui status aktif tombol navigasi mobile
+      document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+        if (btn.dataset.navMobile === pageId) {
+          btn.classList.add('bg-[#122136]', 'text-[#e8eff7]', 'border', 'border-[#7a98bd]/30');
+          btn.classList.remove('text-[#8fa3bd]');
+        } else {
+          btn.classList.remove('bg-[#122136]', 'text-[#e8eff7]', 'border', 'border-[#7a98bd]/30');
+          btn.classList.add('text-[#8fa3bd]');
+        }
+      });
+
+      // Tutup menu mobile jika sedang terbuka
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (!mobileMenu.classList.contains('hidden')) {
+        toggleMobileMenu();
+      }
+
+      updateBackHints();
+      updateMiniPlayerVisibility();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function goBack() {
+      if (navigationHistory.length > 0) {
+        const previousPage = navigationHistory.pop();
+        navigateTo(previousPage, false);
+      } else if (currentPage !== 'home') {
+        navigateTo('home', false);
+      }
+    }
+
+    function goHome() {
+      if (currentPage !== 'home') {
+        navigateTo('home', true);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const openIcon = document.getElementById('menu-icon-open');
+      const closeIcon = document.getElementById('menu-icon-close');
+      const isHidden = menu.classList.toggle('hidden');
+      openIcon.classList.toggle('hidden', !isHidden);
+      closeIcon.classList.toggle('hidden', isHidden);
+    }
+
+    /* -----------------------------------------------------------
+       2. UTILITAS TOAST & SALIN TEKS (EXEC COMMAND FALLBACK)
+    ----------------------------------------------------------- */
+    let toastTimeout = null;
+
+    function showToast(message) {
+      const toast = document.getElementById('toast-notification');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.textContent = message;
+
+      toast.classList.remove('opacity-0', 'translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-2');
+      }, 3000);
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const copied = document.execCommand('copy');
+        document.body.removeChild(textArea);
+
+        if (copied) {
+          showToast(successMsg);
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => showToast(successMsg));
+        }
+      } catch (err) {
+        showToast('Gagal menyalin otomatis. Silakan salin teks secara manual.');
+      }
+    }
+
+    /* -----------------------------------------------------------
+       3. FORMULIR ISI CEPAT & SALIN FORMAT (HOW TO JOIN)
+    ----------------------------------------------------------- */
+    function updateRegistrationFormat() {
+      const nama = document.getElementById('input-nama').value.trim() || '-';
+      const username = document.getElementById('input-username').value.trim() || '-';
+      const usia = document.getElementById('input-usia').value.trim() || '-';
+      const wave = document.getElementById('input-wave').value.trim() || 'Wave II (Terbuka)';
+      const pesan = document.getElementById('input-pesan').value.trim() || '-';
+
+      const formatted = `🌊 𝗙𝗢𝗥𝗠𝗔𝗧 𝗣𝗘𝗡𝗗𝗔𝗙𝗧𝗔𝗥𝗔𝗡 — 𝗖𝗥𝗘𝗘𝗣𝗜𝗡𝗚 𝗢𝗙 𝗡𝗜𝗚𝗛𝗧
+
+• Nama / Muse : ${nama}
+• Username : ${username}
+• Usia / Status : ${usia}
+• Gelombang / Wave : ${wave}
+• Alasan Bergabung : ${pesan}
+
+Dengan ini saya menyatakan telah memahami Concept serta bersedia menjaga ketenangan dan mematuhi seluruh Regulasi Creeping of Night.`;
+
+      document.getElementById('registration-format-box').textContent = formatted;
+    }
+
+    function resetRegistrationFields() {
+      document.getElementById('input-nama').value = '';
+      document.getElementById('input-username').value = '';
+      document.getElementById('input-usia').value = '';
+      document.getElementById('input-wave').selectedIndex = 0;
+      document.getElementById('input-pesan').value = '';
+      updateRegistrationFormat();
+      showToast('Kolom isian telah diatur ulang.');
+    }
+
+    function copyRegistrationFormat() {
+      const formatBox = document.getElementById('registration-format-box');
+      if (!formatBox) return;
+
+      copyTextToClipboard(
+        formatBox.textContent,
+        'Format pendaftaran berhasil disalin! Silakan kirim ke Caretaker.'
+      );
+
+      const btnText = document.getElementById('copy-btn-text');
+      if (btnText) {
+        btnText.textContent = 'Format Berhasil Disalin!';
+        setTimeout(() => {
+          btnText.textContent = 'Salin Format Pendaftaran';
+        }, 2200);
+      }
+    }
+
+    /* -----------------------------------------------------------
+       4A. DATA & RENDER HALAMAN CARETAKER (6 PENGURUS)
+    ----------------------------------------------------------- */
+    const caretakersData = [
+      {
+        name: 'Selene Aruna',
+        role: 'Lead Gatekeeper & Verifikasi',
+        division: 'Divisi Gerbang Masuk',
+        contactId: '@selene.con',
+        initials: 'SA',
+        status: 'Siaga Malam',
+        bio: 'Menyambut jiwa-jiwa baru yang merapat ke dermaga dan memverifikasi format pendaftaran setiap gelombang.'
+      },
+      {
+        name: 'Kaelen Vireo',
+        role: 'Harbor Master & Moderasi',
+        division: 'Divisi Ketertiban',
+        contactId: '@kaelen.con',
+        initials: 'KV',
+        status: 'Aktif',
+        bio: 'Menjaga ketenangan arus percakapan serta memastikan seluruh penghuni merasa aman dan dihargai.'
+      },
+      {
+        name: 'Nyxia Mora',
+        role: 'Curator of Dusk & Poetry',
+        division: 'Divisi Konsep & Karya',
+        contactId: '@nyxia.con',
+        initials: 'NM',
+        status: 'Aktif',
+        bio: 'Merawat arsip sajak, fotografi langit malam, dan tema estetika berkala Creeping of Night.'
+      },
+      {
+        name: 'Riven Thalassa',
+        role: 'Midnight Tide Broadcaster',
+        division: 'Divisi Audio & Acara',
+        contactId: '@riven.con',
+        initials: 'RT',
+        status: 'On Air',
+        bio: 'Mengkurasi daftar putar Midnight Tide Radio dan memandu sesi obrolan santai selepas tengah malam.'
+      },
+      {
+        name: 'Aurelia Vane',
+        role: 'Archivist & Member Liaison',
+        division: 'Divisi Keanggotaan',
+        contactId: '@aurelia.con',
+        initials: 'AV',
+        status: 'Aktif',
+        bio: 'Mencatat data anggota, izin hiatus, serta memperbarui galeri profil penghuni di tepi pasang.'
+      },
+      {
+        name: 'Damian Sorin',
+        role: 'Sanctuary Counselor',
+        division: 'Divisi Ruang Teduh',
+        contactId: '@damian.con',
+        initials: 'DS',
+        status: 'Siaga Malam',
+        bio: 'Menjadi pendengar yang tenang saat malam terasa berat dan membantu menyelesaikan kendala antaranggota.'
+      }
+    ];
+
+    function renderCaretakers() {
+      const grid = document.getElementById('caretaker-grid');
+      if (!grid) return;
+
+      grid.innerHTML = caretakersData.map(person => `
+        <div class="glass-card rounded-3xl p-6 flex flex-col justify-between space-y-5">
+          <div class="space-y-4">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex items-center gap-3.5">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#5c7c9e]/40 to-[#060b14] border border-[#84a5c9]/35 flex items-center justify-center font-serif text-lg font-bold text-[#eef4fb] shrink-0">
+                  ${person.initials}
+                </div>
+                <div>
+                  <span class="text-[11px] font-mono uppercase tracking-wider text-[#84a5c9] block">${person.division}</span>
+                  <h3 class="font-serif text-xl font-bold text-[#eef4fb] leading-tight">${person.name}</h3>
+                  <p class="text-xs text-[#cbd7e6] mt-0.5">${person.role}</p>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-[#060b14]/75 border border-[#84a5c9]/25 text-[10px] font-medium text-[#84a5c9] shrink-0">
+                ${person.status}
+              </span>
+            </div>
+
+            <p class="text-xs sm:text-sm text-[#8fa3bd] leading-relaxed">
+              ${person.bio}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-[#7a98bd]/20 flex items-center justify-between gap-3">
+            <span class="font-mono text-xs text-[#cbd7e6] bg-[#060b14]/80 px-3 py-1.5 rounded-xl border border-[#7a98bd]/20 truncate">
+              ${person.contactId}
+            </span>
+            <button onclick="copyTextToClipboard('${person.contactId}', 'ID kontak ${person.name} (${person.contactId}) berhasil disalin!')" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#5c7c9e]/25 hover:bg-[#5c7c9e]/45 border border-[#84a5c9]/35 text-[#eef4fb] transition-all active:scale-95 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#cbd7e6]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+              </svg>
+              <span>Salin ID</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* -----------------------------------------------------------
+       4B. DATA & RENDER HALAMAN MEMBERS (8 SLOT SIAP EDIT)
+       CARA GANTI FOTO & TEKS MEMBER:
+       - Ganti nilai "photo" di bawah ini dengan path foto lokal
+         seperti "foto/member1.jpg" atau tautan URL foto langsung.
+       - Jika file belum tersedia, atribut onerror otomatis menampilkan
+         placeholder bertema biru laut gelap agar tidak pernah pecah.
+    ----------------------------------------------------------- */
+    const membersData = [
+      {
+        id: 1,
+        name: 'Vespera / Elara',
+        username: '@elara.tide',
+        wave: 'Wave I',
+        archetype: 'The Tide Watcher',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=01+%E2%80%A2+Elara',
+        quote: '“Ombak malam selalu tahu jalan pulang menuju dermaga yang sunyi.”',
+        bio: 'Penikmat langit tengah malam yang gemar menulis sajak pendek sembari mendengarkan deburan air pasang.',
+        joinedDate: 'Agustus 2026'
+      },
+      {
+        id: 2,
+        name: 'Caelum / Sora',
+        username: '@sora.abyss',
+        wave: 'Wave I',
+        archetype: 'Midnight Drifter',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=02+%E2%80%A2+Sora',
+        quote: '“Beberapa pertanyaan memang lebih indah dibiarkan mengapung di gelapnya laut.”',
+        bio: 'Pengumpul potongan melodi piano insomnia dan penggemar fotografi siluet pantai saat larut.',
+        joinedDate: 'Agustus 2026'
+      },
+      {
+        id: 3,
+        name: 'Lyra / Nirmala',
+        username: '@lyra.mist',
+        wave: 'Wave II',
+        archetype: 'Lantern Keeper',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=03+%E2%80%A2+Lyra',
+        quote: '“Di balik kabut paling pekat, selalu ada cahaya perak yang menuntun.”',
+        bio: 'Sering hadir selepas pukul sebelas malam untuk berbagi cerita tenang dan rekomendasi buku sastra.',
+        joinedDate: 'September 2026'
+      },
+      {
+        id: 4,
+        name: 'Orion / Darel',
+        username: '@darel.noctis',
+        wave: 'Wave II',
+        archetype: 'Deep Sea Listener',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=04+%E2%80%A2+Darel',
+        quote: '“Diam bukan berarti sepi; kadang ia adalah cara laut beristirahat.”',
+        bio: 'Pendengar yang tenang di ruang obrolan malam dan penikmat kopi dingin di tepi jendela.',
+        joinedDate: 'September 2026'
+      },
+      {
+        id: 5,
+        name: 'Seraphina / Vian',
+        username: '@vian.silver',
+        wave: 'Nocturnal',
+        archetype: 'Starlight Weaver',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=05+%E2%80%A2+Vian',
+        quote: '“Setiap gelombang membawa bisikan baru bagi jiwa yang sudi mendengar.”',
+        bio: 'Penjelajah frekuensi dini hari yang menyukai diskusi filosofis ringan dan musik ambient.',
+        joinedDate: 'Oktober 2026'
+      },
+      {
+        id: 6,
+        name: 'Altair / Kenzo',
+        username: '@kenzo.harbor',
+        wave: 'Wave I',
+        archetype: 'Harbor Chronicler',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=06+%E2%80%A2+Kenzo',
+        quote: '“Malam tidak pernah terburu-buru, begitu pula langkah kita di sini.”',
+        bio: 'Pencatat momen-momen hangat komunitas dan pengarsip kutipan puitis dari dermaga malam.',
+        joinedDate: 'Agustus 2026'
+      },
+      {
+        id: 7,
+        name: 'Celeste / Nara',
+        username: '@nara.whisper',
+        wave: 'Wave II',
+        archetype: 'Moonlit Poet',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=07+%E2%80%A2+Nara',
+        quote: '“Tanda tanya di kepala perlahan reda saat ombak menyentuh tepian.”',
+        bio: 'Penulis prosa singkat bertema hujan, samudra, dan ketenangan setelah hari yang panjang.',
+        joinedDate: 'Oktober 2026'
+      },
+      {
+        id: 8,
+        name: 'Noctis / Rey',
+        username: '@rey.phantom',
+        wave: 'Nocturnal',
+        archetype: 'Shadow Navigator',
+        photo: 'https://placehold.co/400x500/0b1524/84a5c9?text=08+%E2%80%A2+Rey',
+        quote: '“Menjaga lentera tetap menyala sampai fajar menyentuh cakrawala.”',
+        bio: 'Penjaga shift larut malam yang gemar berbagi daftar putar lagu melankolis di Midnight Tide Radio.',
+        joinedDate: 'November 2026'
+      }
+    ];
+
+    let activeMemberWaveFilter = 'Semua';
+
+    function setMemberWaveFilter(wave) {
+      activeMemberWaveFilter = wave;
+      document.querySelectorAll('.member-filter-btn').forEach(btn => {
+        if (btn.dataset.waveFilter === wave) {
+          btn.classList.add('bg-[#5c7c9e]/35', 'text-[#eef4fb]', 'font-semibold', 'border-[#84a5c9]/50');
+          btn.classList.remove('bg-[#060b14]/70', 'text-[#8fa3bd]', 'font-medium', 'border-[#84a5c9]/20');
+        } else {
+          btn.classList.remove('bg-[#5c7c9e]/35', 'text-[#eef4fb]', 'font-semibold', 'border-[#84a5c9]/50');
+          btn.classList.add('bg-[#060b14]/70', 'text-[#8fa3bd]', 'font-medium', 'border-[#84a5c9]/20');
+        }
+      });
+      renderMembers();
+    }
+
+    function filterMembers() {
+      renderMembers();
+    }
+
+    function resetMemberFilters() {
+      const searchInput = document.getElementById('member-search-input');
+      if (searchInput) searchInput.value = '';
+      setMemberWaveFilter('Semua');
+    }
+
+    function renderMembers() {
+      const grid = document.getElementById('members-grid');
+      const emptyState = document.getElementById('members-empty-state');
+      if (!grid) return;
+
+      const query = (document.getElementById('member-search-input')?.value || '').trim().toLowerCase();
+
+      const filtered = membersData.filter(member => {
+        const matchesWave = activeMemberWaveFilter === 'Semua' || member.wave === activeMemberWaveFilter;
+        const matchesQuery =
+          !query ||
+          member.name.toLowerCase().includes(query) ||
+          member.username.toLowerCase().includes(query) ||
+          member.archetype.toLowerCase().includes(query);
+        return matchesWave && matchesQuery;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        if (emptyState) emptyState.classList.remove('hidden');
+        return;
+      }
+
+      if (emptyState) emptyState.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(member => `
+        <article onclick="openMemberModal(${member.id})" class="glass-card rounded-3xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+          <!-- Bingkai Foto Potret 4:5 dengan Vignette Laut Malam -->
+          <div class="relative aspect-[4/5] w-full bg-[#060b14] overflow-hidden">
+            <img
+              src="${member.photo}"
+              alt="Foto ${member.name}"
+              loading="lazy"
+              onerror="this.onerror=null;this.src='https://placehold.co/400x500/0b1524/84a5c9?text=Creeping+of+Night';"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <!-- Vignette Laut Malam & Siluet Ombak Halus -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[#060b14] via-[#060b14]/20 to-transparent pointer-events-none"></div>
+
+            <!-- Tag Wave / Angkatan -->
+            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#060b14]/80 backdrop-blur-md border border-[#84a5c9]/35 text-[11px] font-semibold text-[#cbd7e6]">
+              ${member.wave}
+            </span>
+
+            <!-- Archetype di Bagian Bawah Foto -->
+            <div class="absolute bottom-3 left-3.5 right-3.5">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-[#84a5c9] block">${member.archetype}</span>
+              <h3 class="font-serif text-xl font-bold text-[#eef4fb] leading-tight mt-0.5">${member.name}</h3>
+            </div>
+          </div>
+
+          <!-- Informasi Singkat & Aksi -->
+          <div class="p-4 sm:p-5 flex-grow flex flex-col justify-between space-y-4">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-mono text-xs text-[#cbd7e6] bg-[#060b14]/80 px-2.5 py-1 rounded-lg border border-[#84a5c9]/20 truncate">
+                  ${member.username}
+                </span>
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); copyTextToClipboard('${member.username}', 'Username ${member.username} berhasil disalin!')"
+                  title="Salin Username"
+                  class="p-2 rounded-lg bg-[#5c7c9e]/20 hover:bg-[#5c7c9e]/40 border border-[#84a5c9]/30 text-[#eef4fb] transition-colors shrink-0"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <p class="font-serif italic text-xs sm:text-sm text-[#8fa3bd] line-clamp-2 leading-relaxed">
+                ${member.quote}
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onclick="event.stopPropagation(); openMemberModal(${member.id})"
+              class="w-full py-2.5 px-3 rounded-xl text-xs font-semibold bg-[#060b14]/75 hover:bg-[#5c7c9e]/30 border border-[#84a5c9]/25 hover:border-[#84a5c9]/50 text-[#eef4fb] transition-all flex items-center justify-center gap-1.5"
+            >
+              <span>Lihat Profil</span>
+              <span class="text-[#84a5c9]">→</span>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function openMemberModal(memberId) {
+      const member = membersData.find(m => m.id === memberId);
+      const modal = document.getElementById('member-detail-modal');
+      if (!member || !modal) return;
+
+      const photoEl = document.getElementById('modal-member-photo');
+      photoEl.src = member.photo;
+      photoEl.alt = `Foto ${member.name}`;
+
+      document.getElementById('modal-member-wave').textContent = member.wave;
+      document.getElementById('modal-member-archetype').textContent = member.archetype;
+      document.getElementById('modal-member-name').textContent = member.name;
+      document.getElementById('modal-member-username').textContent = member.username;
+      document.getElementById('modal-member-quote').textContent = member.quote;
+      document.getElementById('modal-member-bio').textContent = member.bio;
+      document.getElementById('modal-member-joined').textContent = `Bergabung: ${member.joinedDate}`;
+
+      const copyBtn = document.getElementById('modal-copy-username-btn');
+      copyBtn.onclick = function () {
+        copyTextToClipboard(member.username, `Username ${member.name} (${member.username}) berhasil disalin!`);
+      };
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeMemberModal() {
+      const modal = document.getElementById('member-detail-modal');
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function closeMemberModalOnBackdrop(event) {
+      if (event.target && event.target.id === 'member-detail-modal') {
+        closeMemberModal();
+      }
+    }
+
+
+    /* -----------------------------------------------------------
+       6. INISIALISASI APLIKASI SAAT HALAMAN DIMUAT
+    ----------------------------------------------------------- */
+    window.onload = function () {
+      renderCaretakers();
+      renderMembers();
+      renderPlaylist();
+      updatePlayerUI();
+      navigateTo('home', false);
+    };
+  </script>
+</body>
+</html>
